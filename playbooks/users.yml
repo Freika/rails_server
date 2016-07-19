@@ -9,18 +9,19 @@
     password: sf.fmOdgCOEVI
     env: prod
     manala_ohmyzsh_users:
-      - user:     deploy
+      - user: deploy
         template: users/default.{{env}}.j2
         config:
           - ZSH_THEME: default.prod
           - plugins: (git common-aliases history history-substring-search)
-  tasks:
+  pre_tasks:
   - name: Create deploy user
     user: name=deploy
           state=present
           groups="sudo"
           password={{password}}
           shell=/bin/zsh
+  tasks:
   - name: Give deploy user sudo rights
     lineinfile: dest=/etc/sudoers
                 state=present
