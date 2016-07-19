@@ -23,7 +23,10 @@
   - name: Remove default nginx config
     become: true
     file: path=/etc/nginx/sites-enabled/default state=absent
+    notify:
+      - restart nginx
 
-  - name: Restart nginx to catch new configurations
-    become: true
-    service: name=nginx state=restarted
+  handlers:
+    - name: restart nginx
+      become: true
+      service: name=nginx state=restarted

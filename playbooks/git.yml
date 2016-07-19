@@ -1,7 +1,0 @@
----
-- hosts: static
-  remote_user: deploy
-  tasks:
-  - name: Install git
-    become: true
-    apt: name=git-core update_cache=yes

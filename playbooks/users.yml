@@ -1,17 +1,31 @@
 ---
 - hosts: static
   remote_user: root
+  roles:
+    - { role: manala.git }
+    - { role: manala.zsh }
+    - { role: manala.ohmyzsh }
   vars:
     password: sf.fmOdgCOEVI
+    env: prod
+    manala_ohmyzsh_users:
+      - user:     deploy
+        template: users/default.{{env}}.j2
+        config:
+          - ZSH_THEME: default.prod
+          - plugins: (git common-aliases history history-substring-search)
   tasks:
   - name: Create deploy user
     user: name=deploy
           state=present
           groups="sudo"
           password={{password}}
-  - name: give deploy user sudo rights
+          shell=/bin/zsh
+  - name: Give deploy user sudo rights
     lineinfile: dest=/etc/sudoers
                 state=present
                 regexp='^deploy ALL\='
                 line='deploy ALL=(ALL) NOPASSWD:ALL'
                 validate='visudo -cf %s'
+  - name: Setup authorized key for deploy user
+    authorized_key: user=deploy key="{{ lookup('file', '/Users/frey/.ssh/id_rsa.pub') }}"

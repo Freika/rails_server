@@ -1,0 +1,22 @@
+---
+- hosts: static
+  remote_user: root
+  sudo: yes
+  gather_facts: no
+  pre_tasks:
+    - name: apt-get update
+      raw: sudo apt-get update
+    - name: 'install python2'
+      raw: sudo apt-get -y install python-minimal
+  roles:
+    - { role: manala.git }
+    - { role: manala.zsh }
+    - { role: manala.ohmyzsh }
+  vars:
+    password: sf.fmOdgCOEVI
+
+  tasks:
+    - include: playbooks/users.yml password={{password}}
+    # - include: playbooks/nginx.yml
+    # - include: playbooks/nginx_default_site.yml
+    # - include: playbooks/ruby.yml

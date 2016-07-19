@@ -1,9 +1,10 @@
+---
 - hosts: static
-  sudo: yes
   remote_user: root
+  sudo: yes
   gather_facts: no
   pre_tasks:
-    - name: Update apt-get
+    - name: apt-get update
       raw: sudo apt-get update
     - name: 'install python2'
       raw: sudo apt-get -y install python-minimal
