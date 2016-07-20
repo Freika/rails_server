@@ -1,0 +1,14 @@
+---
+- hosts: static
+  remote_user: deploy
+  vars:
+    env: prod
+    manala_ohmyzsh_users:
+      - user: deploy
+        template: users/default.{{env}}.j2
+        config:
+          - ZSH_THEME: aussiegeek
+          - plugins: (git common-aliases history history-substring-search)
+  tasks:
+  - name: Install vim
+    apt: name=vim
