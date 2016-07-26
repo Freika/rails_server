@@ -17,13 +17,12 @@
   remote_user: deploy
 
   roles:
-    - { role: manala.git }
-    - { role: manala.zsh }
     - { role: mashimom.oh-my-zsh, ohmyzsh_theme: 'aussiegeek' }
 
 - name: Install all necessary software
   hosts: all
   remote_user: deploy
+  become: yes
   roles:
     - { role: common }
 
@@ -41,7 +40,20 @@
   remote_user: deploy
   roles:
     - role: rvm_io.rvm1-ruby
-      become: true
+      become: yes
       rvm1_rubies:
         - 'ruby-2.3.1'
     - role: ruby
+
+- name: Install PostgreSQL
+  hosts: all
+  remote_user: deploy
+  become: yes
+  roles:
+    - role: ANXS.PostgreSQL
+      postgresql_version: 9.5
+      postgresql_encoding: 'UTF-8'
+      postgresql_locale: 'en_US.UTF-8'
+
+      postgresql_admin_user: "postgres"
+      postgresql_default_auth_method: "trust"

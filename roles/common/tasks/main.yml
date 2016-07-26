@@ -1,5 +1,13 @@
 ---
 
 - name: Install curl
-  become: yes
   apt: name=curl
+
+- name: Add locale variables to .bashrc
+  become_user: root
+  become: yes
+  lineinfile:
+    dest: /etc/environment
+    line: "{{ item.line }}"
+  with_items:
+    - { line: LC_ALL=en_US.UTF-8 }
