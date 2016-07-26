@@ -1,12 +1,16 @@
 ---
+# Add deploy user, ssh key, setup ohmyzsh and install nginx with middleman.dev default host.
+
 - name: Setup user
   hosts: all
   remote_user: root
   vars:
     password: sf.fmOdgCOEVI
-
   roles:
-    - { role: common }
+    - { role: users }
+    - { role: manala.git }
+    - { role: manala.zsh }
+    - { role: mashimom.oh-my-zsh, ohmyzsh_theme: 'aussiegeek' }
 
 - name: Setup user environment
   hosts: all
@@ -16,3 +20,11 @@
     - { role: manala.git }
     - { role: manala.zsh }
     - { role: mashimom.oh-my-zsh, ohmyzsh_theme: 'aussiegeek' }
+
+- name: Setup nginx
+  hosts: all
+  remote_user: deploy
+  vars:
+    default_host: middleman.dev
+  roles:
+    - { role: nginx }

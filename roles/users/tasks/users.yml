@@ -1,4 +1,6 @@
 ---
+# Create user deploy, make him passwordless sudoer and copy ssh key.
+
 - name: Create deploy user
   user: name=deploy
         state=present

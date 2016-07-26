@@ -1,0 +1,34 @@
+---
+# Install nginx and setup app dir along with default host. Restart nginx.
+
+- name: Install nginx
+  become: true
+  apt: name=nginx update_cache=yes
+
+- name: Create directories
+  file: path=~/var/www/ state=directory mode=0755
+
+- name: Setup default nginx directory
+  file: path=~/var/www/{{ default_host }}/html state=directory mode=0755
+
+- name: Setup default nginx page
+  template: src=../templates/index.html dest=~/var/www/{{ default_host }}/html/index.html owner=deploy mode=0644
+
+- name: Copy nginx sites-available file
+  become: true
+  command: cp /etc/nginx/sites-available/default /etc/nginx/sites-available/{{ default_host }}
+
+- name: Fill {{ default_host }} nginx config file
+  become: true
+  template: src=../templates/{{ default_host }} dest=/etc/nginx/sites-available/{{ default_host }}
+
+- name: Symlink sites-available to sites-enabled
+  become: true
+  file: src=/etc/nginx/sites-available/{{ default_host }} dest=/etc/nginx/sites-enabled/{{ default_host }} state=link force=yes
+
+- name: Remove default nginx config
+  become: true
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify:
+    - restart nginx
+
