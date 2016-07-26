@@ -21,6 +21,13 @@
     - { role: manala.zsh }
     - { role: mashimom.oh-my-zsh, ohmyzsh_theme: 'aussiegeek' }
 
+- name: Install all necessary software
+  hosts: all
+  remote_user: deploy
+  roles:
+    - { role: common }
+
+
 - name: Setup nginx
   hosts: all
   remote_user: deploy
@@ -28,3 +35,13 @@
     default_host: middleman.dev
   roles:
     - { role: nginx }
+
+- name: Install Ruby
+  hosts: all
+  remote_user: deploy
+  roles:
+    - role: rvm_io.rvm1-ruby
+      become: true
+      rvm1_rubies:
+        - 'ruby-2.3.1'
+    - role: ruby
