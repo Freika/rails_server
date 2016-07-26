@@ -1,20 +1,15 @@
 ---
 - hosts: static
   remote_user: root
-  roles:
-    - { role: manala.git }
-    - { role: manala.zsh }
-    - { role: manala.ohmyzsh }
   vars:
     password: sf.fmOdgCOEVI
-  pre_tasks:
+  tasks:
   - name: Create deploy user
     user: name=deploy
           state=present
           groups="sudo"
           password={{password}}
           shell=/bin/zsh
-  tasks:
   - name: Give deploy user sudo rights
     lineinfile: dest=/etc/sudoers
                 state=present
