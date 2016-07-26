@@ -4,7 +4,7 @@
   roles:
     - { role: manala.git }
     - { role: manala.zsh }
-    - { role: mashimom.oh-my-zsh, ohmyzsh_theme: "aussiegeek" }
+    - { role: mashimom.oh-my-zsh, ohmyzsh_theme: 'aussiegeek' }
   tasks:
   - name: Install vim
     become: yes
