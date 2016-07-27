@@ -1,9 +1,17 @@
 ## Usage
 
+Create file hosts, example:
+
 ```
-cd playbooks
-ansible-playbook python.yml users.yml users_settings.yml nginx.yml nginx_default_site.yml
+[static]
+SERVER_IP_ADDRESS
+```
+
+Run
+```
+ansible-playbook python.yml static_vps.yml -i hosts
 ```
 
 User: **deploy**
+
 Password: **00000000**

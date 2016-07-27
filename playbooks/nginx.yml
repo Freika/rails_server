@@ -1,9 +1,0 @@
----
-- hosts: static
-  remote_user: deploy
-  tasks:
-  - name: Install nginx
-    become: true
-    apt: name=nginx update_cache=yes
-  - name: Create directories
-    file: path=~/var/www/ state=directory mode=0755
