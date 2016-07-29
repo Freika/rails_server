@@ -6,13 +6,13 @@
   apt: name=nginx update_cache=yes
 
 - name: Create directories
-  file: path=~/var/www/ state=directory mode=0755
+  file: path=/home/deploy/var/www/ state=directory mode=0755
 
 - name: Setup default nginx directory
-  file: path=~/var/www/{{ default_host }}/html state=directory mode=0755
+  file: path=/home/deploy/var/www/{{ default_host }}/html state=directory mode=0755
 
 - name: Setup default nginx page
-  template: src=../templates/index.html dest=~/var/www/{{ default_host }}/html/index.html owner=deploy mode=0644
+  template: src=templates/index.html dest=/home/deploy/var/www/{{ default_host }}/html/index.html owner=deploy mode=0644
 
 - name: Copy nginx sites-available file
   become: true
@@ -20,7 +20,7 @@
 
 - name: Fill {{ default_host }} nginx config file
   become: true
-  template: src=../templates/{{ default_host }} dest=/etc/nginx/sites-available/{{ default_host }}
+  template: src=templates/{{ default_host }} dest=/etc/nginx/sites-available/{{ default_host }}
 
 - name: Symlink sites-available to sites-enabled
   become: true

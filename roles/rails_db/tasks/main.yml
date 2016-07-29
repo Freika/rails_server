@@ -1,0 +1,12 @@
+---
+
+- name: "Add {{ app_name }} app database"
+  postgresql_db: name={{ app_name }}_production
+                 encoding='UTF-8'
+
+- name: "Add {{ app_name }} user to {{ app_name }}_production database"
+  postgresql_user: name={{ app_name }}
+                   db={{ app_name }}_production
+                   password={{ password }}
+                   role_attr_flags=CREATEDB,NOSUPERUSER
+                   encrypted=true

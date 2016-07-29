@@ -1,0 +1,33 @@
+---
+
+- name: Add passenger key
+  become: yes
+  command: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
+
+- name: Install apt-transport-https
+  become: yes
+  command: apt-get install -y apt-transport-https ca-certificates
+
+- name: Add passenger repo
+  become: yes
+  command: sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main > /etc/apt/sources.list.d/passenger.list'
+- name: Update apt-get
+  become: yes
+  command: apt-get update
+
+- name: Install nginx-extras
+  become: yes
+  apt: name=nginx-extras
+
+- name: Install passenger
+  become: yes
+  apt: name=passenger
+
+- name: Update nginx.conf
+  become: yes
+  template: src=templates/nginx.conf dest=/etc/nginx/nginx.conf
+  notify: restart nginx
+
+- name: Check passenger installation
+  become: yes
+  command: /usr/bin/passenger-config validate-install

@@ -27,13 +27,21 @@
     - { role: common }
 
 
-- name: Setup nginx
+- name: Setup nginx and passenger
   hosts: all
   remote_user: deploy
+  become: yes
   vars:
     default_host: middleman.dev
+    passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
+    passenger_ruby: /usr/local/rvm/gems/ruby-2.3.1/wrappers/ruby
+    passenger_app_env: production
+    passenger_app_root: /home/deploy/var/www/nickshaker/current/public
+    passenger_server_name: nickshaker.dev
   roles:
-    - { role: nginx }
+    - { role: geerlingguy.passenger }
+    # - { role: nginx }
+    # - { role: passenger }
 
 - name: Install Ruby
   hosts: all
@@ -55,5 +63,14 @@
       postgresql_encoding: 'UTF-8'
       postgresql_locale: 'en_US.UTF-8'
 
-      postgresql_admin_user: "postgres"
-      postgresql_default_auth_method: "trust"
+      postgresql_admin_user: 'postgres'
+      postgresql_default_auth_method: 'trust'
+
+- name: Add Rails app database and user
+  hosts: all
+  remote_user: deploy
+  vars:
+    app_name: nickshaker
+    password: sf.fmOdgCOEVI
+  roles:
+    - role: rails_db
