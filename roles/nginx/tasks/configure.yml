@@ -1,9 +1,5 @@
 ---
-# Install nginx and setup app dir along with default host. Restart nginx.
-
-- name: Install nginx
-  become: true
-  apt: name=nginx update_cache=yes
+# Configure nginx and setup app dir along with default host. Restart nginx.
 
 - name: Create directories
   file: path=/home/deploy/var/www/ state=directory mode=0755

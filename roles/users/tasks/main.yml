@@ -2,6 +2,7 @@
 
 - name: Create deploy user
   include: users.yml
+
 - name: Setup user settings
   become_user: deploy
   include: user_settings.yml

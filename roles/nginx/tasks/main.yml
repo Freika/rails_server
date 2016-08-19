@@ -1,4 +1,10 @@
 ---
 
-- name: Install nginx
-  include: install.yml
+- name: Configure nginx
+  include: configure.yml
+
+- name: Remove passenger host
+  file: path=/etc/nginx/sites-available/passenger state=absent
+
+- name: Remove passenger link
+  file: path=/etc/nginx/sites-enabled/passenger state=absent

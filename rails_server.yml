@@ -15,7 +15,6 @@
 - name: Setup user environment
   hosts: all
   remote_user: deploy
-
   roles:
     - { role: mashimom.oh-my-zsh, ohmyzsh_theme: 'aussiegeek' }
 
@@ -46,7 +45,7 @@
     passenger_server_name: nickshaker.dev
   roles:
     - { role: geerlingguy.passenger }
-    # - { role: nginx }
+    - { role: nginx }
     # - { role: passenger }
 
 - name: Install Ruby
