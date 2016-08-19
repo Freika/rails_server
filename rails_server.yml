@@ -4,8 +4,6 @@
 - name: Setup user
   hosts: all
   remote_user: root
-  vars:
-    password: sf.fmOdgCOEVI
   roles:
     - { role: users }
     - { role: manala.git }
@@ -39,10 +37,10 @@
   vars:
     default_host: middleman.dev
     passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
-    passenger_ruby: /usr/local/rvm/gems/ruby-2.3.1/wrappers/ruby
+    passenger_ruby: /usr/local/rvm/gems/ruby-{{ ruby_version }}/wrappers/ruby
     passenger_app_env: production
-    passenger_app_root: /home/deploy/var/www/nickshaker/current/public
-    passenger_server_name: nickshaker.dev
+    passenger_app_root: /home/deploy/var/www/{{ app_name }}/current/public
+    passenger_server_name: "{{ app_name }}.dev"
   roles:
     - { role: geerlingguy.passenger }
     - { role: nginx }
@@ -55,7 +53,7 @@
     - role: rvm_io.rvm1-ruby
       become: yes
       rvm1_rubies:
-        - 'ruby-2.3.1'
+        - 'ruby-{{ ruby_version }}'
     - role: ruby
 
 - name: Install PostgreSQL
@@ -74,8 +72,5 @@
 - name: Add Rails app database and user
   hosts: all
   remote_user: deploy
-  vars:
-    app_name: nickshaker
-    password: sf.fmOdgCOEVI
   roles:
     - role: rails_db

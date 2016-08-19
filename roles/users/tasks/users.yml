@@ -5,7 +5,7 @@
   user: name=deploy
         state=present
         groups="sudo"
-        password={{ password }}
+        password={{ user_password }}
         shell=/bin/zsh
 
 - name: Give deploy user sudo rights
