@@ -4,9 +4,8 @@
     dest: /home/deploy/var/www/{{ app_name }}/shared/config/database.yml
 
 - name: Upload db dump
-  hosts: all
   remote_user: deploy
-  copy: src={{ app_name }}.db dest=/home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.db
+  copy: src={{ app_name }}.sql dest=/home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql
 
 - name: restore db
-  command: psql {{ app_name }}_production < /home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.db
+  command: psql {{ app_name }}_production < /home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql -U {{ app_name }}
