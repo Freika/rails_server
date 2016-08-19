@@ -1,12 +1,5 @@
-- name: Upload database.yml
-  copy:
-    src: templates/database.yml
-    dest: /home/deploy/var/www/nickshaker/shared/config/database.yml
-
-- name: Upload db dump
+- name: Upload DB
   hosts: all
   remote_user: deploy
-  copy: src=nickshaker.db dest=/home/deploy/var/www/nickshaker/shared/nickshaker.db
-
-- name: restore db
-  command: psql nickshaker_production < /home/deploy/var/www/nickshaker/shared/nickshaker.db
+  roles:
+    - { role: upload_db }
