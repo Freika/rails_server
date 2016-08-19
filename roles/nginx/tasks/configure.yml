@@ -2,7 +2,7 @@
 # Configure nginx and setup app dir along with default host. Restart nginx.
 
 - name: Create directories
-  file: path=/home/deploy/var/www/ state=directory mode=0755
+  file: path=/home/deploy/var/www/ state=directory owner=deploy mode=0755
 
 - name: Setup default nginx directory
   file: path=/home/deploy/var/www/{{ default_host }}/html state=directory mode=0755
