@@ -1,0 +1,4 @@
+---
+- name: Upload monit config
+  copy: src=templates/monitrc dest=/etc/monit/monitrc owner=root
+  notify: reload monit
