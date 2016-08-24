@@ -69,8 +69,3 @@
       postgresql_admin_user: 'postgres'
       postgresql_default_auth_method: 'trust'
 
-- name: Add Rails app database and user
-  hosts: all
-  remote_user: deploy
-  roles:
-    - role: rails_db

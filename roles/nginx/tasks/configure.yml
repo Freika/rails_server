@@ -21,23 +21,3 @@
 - name: Symlink sites-available to sites-enabled
   become: yes
   file: src=/etc/nginx/sites-available/{{ default_host }} dest=/etc/nginx/sites-enabled/{{ default_host }} state=link force=yes
-
-- name: Add virtual host to nginx
-  become: yes
-  template: src=templates/{{ app_name }} dest=/etc/nginx/sites-available/{{ app_name }}
-
-- name: Create symlink from sites-available to sites-enabled
-  become: yes
-  file:
-    src: /etc/nginx/sites-available/{{ app_name }}
-    dest: /etc/nginx/sites-enabled/{{ app_name }}
-    state: link
-  notify:
-    - restart nginx
-
-- name: Remove default nginx config
-  become: yes
-  file: path=/etc/nginx/sites-enabled/default state=absent
-  notify:
-    - restart nginx
-
