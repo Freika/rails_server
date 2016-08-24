@@ -9,3 +9,9 @@
   remote_user: deploy
   roles:
     - role: rails_db
+
+- name: Upload DB
+  hosts: all
+  remote_user: deploy
+  roles:
+    - { role: upload_db }

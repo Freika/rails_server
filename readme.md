@@ -11,6 +11,10 @@
 
 1. Run `ansible-playbook server/python.yml server/server.yml -i server/hosts` to setup users and all necessary software
 2. Run `cap production deploy:check` to create necessary infrastructure for capistrano 3
-3. Run `ansible-playbook server/db.yml -i server/hosts` to upload `database.yml` and your database dump. It will also apply your dump to your database on server
+3. Run `ansible-playbook server/app.yml -i server/hosts` to create Nginx virtual host for your app, create database for it and upload database dump on server.
 4. Run `cap production deploy`. If it failed because if not found active support 5, just run it one more time.
 5. You are awesome!
+
+## Deploying application to already configured server
+
+Just run steps from 2 to 5 from Usage. You'll also want to update files from Preparation as appropriate.
