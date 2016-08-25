@@ -46,6 +46,16 @@
     - { role: nginx }
     # - { role: passenger }
 
+- name: Install redis
+  hosts: all
+  remote_user: deploy
+  become: yes
+  vars:
+    - redis_bind: 127.0.0.1
+    - redis_version: 3.2.3
+  roles:
+    - DavidWittman.redis
+
 - name: Install Ruby
   hosts: all
   remote_user: deploy
