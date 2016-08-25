@@ -47,6 +47,11 @@ set logfile syslog facility log_daemon
 ## is possible to override with the PORT option.
 #
 # set mailserver localhost
+
+set mailserver smtp.gmail.com port 587
+   username {{ gmail_user }} password {{ gmail_password }}
+   using tlsv12
+
 #
 #
 ## By default monit will drop alert events if no mail servers are available.
@@ -228,7 +233,7 @@ set httpd port 2812 and
 ## It is possible to include additional configuration parts from other files or
 ## directories.
 #
-#  include /etc/monit.d/*
+# include /etc/monit/*
 
 # nginx
 check process nginx with pidfile /opt/nginx/logs/nginx.pid
@@ -239,11 +244,9 @@ check process nginx with pidfile /opt/nginx/logs/nginx.pid
   if cpu > 60% for 5 cycles then restart
   if 10 restarts within 10 cycles then timeout
 
-# redis
-# check process redis with pidfile /var/run/redis.pid
-#   start program = "/etc/init.d/redis-server start"
-#   stop program = "/etc/init.d/redis-server stop"
-#   group redis
-
-# check file dump.rdb with path /var/lib/redis/dump.rdb
-#   if size > 100 MB then alert
+check process redis with pidfile /var/run/redis/6379.pid
+  group database
+  start program = "/etc/init.d/redis_6379 start"
+  stop program = "/etc/init.d/redis_6379 stop"
+  if failed host 127.0.0.1 port 6379 then restart
+  if 15 restarts within 15 cycles then timeout

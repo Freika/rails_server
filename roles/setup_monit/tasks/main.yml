@@ -1,4 +1,10 @@
 ---
+- debug: msg="System {{ gmail_user }} has uuid {{ gmail_password }}"
+
 - name: Upload monit config
-  copy: src=templates/monitrc dest=/etc/monit/monitrc owner=root
+  template: src=templates/monitrc.j2 dest=/etc/monit/monitrc owner=root
   notify: reload monit
+
+# - name: Upload redis-server config
+#   copy: src=templates/redis-server.conf dest=/etc/monit/redis-server.conf owner=root
+#   notify: reload monit
