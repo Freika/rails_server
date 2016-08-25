@@ -17,7 +17,7 @@
 ## Start monit in the background (run as a daemon):
 #
 set daemon 60           # check services at 2-minute intervals
-    with start delay 240  # optional: delay the first check by 4-minutes
+    with start delay 60  # optional: delay the first check by 4-minutes
 #                           # (by default check immediately after monit start)
 #
 #
@@ -101,7 +101,7 @@ set mailserver smtp.gmail.com port 587
 ## events by using a filter as in the second example below.
 #
 
-# set alert franck.dagostini@gmail.com
+set alert {{ gmail_user }}
 
 # set alert manager@foo.bar only on { timeout }  # receive just service-
 #                                                # timeout alert
@@ -113,8 +113,8 @@ set mailserver smtp.gmail.com port 587
 #
 set httpd port 2812 and
 #  use address 0.0.0.0  # only accept connection from localhost
-  allow 83.246.236.254        # allow localhost to connect to the server and
-  allow admin:monit      # require user 'admin' with password 'monit'
+  allow {{ monit_allowed_ip }} # allow localhost to connect to the server and
+  allow {{ monit_user }}:{{ monit_password }} # require user 'admin' with password 'monit'
 #     allow @monit           # allow users of group 'monit' to connect (rw)
 #     allow @users readonly  # allow users of group 'users' to connect readonly
 #
@@ -236,7 +236,7 @@ set httpd port 2812 and
 # include /etc/monit/*
 
 # nginx
-check process nginx with pidfile /opt/nginx/logs/nginx.pid
+check process nginx with pidfile /run/nginx.pid
   start program = "/etc/init.d/nginx start"
   stop  program = "/etc/init.d/nginx stop"
   if failed host 127.0.0.1 port 80 then restart

@@ -4,7 +4,7 @@
 2. Open file `server/hosts` and replace values with your own. User and database passwords should be encrypted (http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module)
 3. Update `server/roles/upload_db/templates/database.yml` with your credentials
 4. Update `server/roles/nginx/templates/nickshaker` with your domain and app name in path.
-5. Place you postgres database dump as `server/app_name.sql`. Dump must be created with `pg_dump app_name > app_name.sql`
+5. Place you postgres database dump as `server/app_name.sql`. Dump must be created with `pg_dump app_name < app_name.sql`
 5. Update IP address of your server in `config/deploy/production.rb` and set user value to `deploy`.
 
 ## Usage
