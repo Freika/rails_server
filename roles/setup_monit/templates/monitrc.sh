@@ -247,6 +247,12 @@ check process nginx with pidfile /run/nginx.pid
 check process redis with pidfile /var/run/redis/6379.pid
   group database
   start program = "/etc/init.d/redis_6379 start"
-  stop program = "/etc/init.d/redis_6379 stop"
+  stop  program = "/etc/init.d/redis_6379 stop"
   if failed host 127.0.0.1 port 6379 then restart
+  if 15 restarts within 15 cycles then timeout
+
+check process postgres with pidfile /var/lib/postgresql/9.5/main/postmaster.pid
+  group database
+  start program = "/etc/init.d/postgresql start"
+  stop  program = "/etc/init.d/postgresql stop"
   if 15 restarts within 15 cycles then timeout
