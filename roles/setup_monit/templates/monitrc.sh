@@ -256,3 +256,6 @@ check process postgres with pidfile /var/lib/postgresql/9.5/main/postmaster.pid
   start program = "/etc/init.d/postgresql start"
   stop  program = "/etc/init.d/postgresql stop"
   if 15 restarts within 15 cycles then timeout
+
+check device var with path /var
+  if SPACE usage > 80% then alert
