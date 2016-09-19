@@ -18,3 +18,21 @@
 ## Deploying application to already configured server
 
 Just run steps from 2 to 5 from Usage. You'll also want to update files from Preparation as appropriate.
+
+## hosts file
+Create file `hosts` in root dir of ansible script. Here is an example:
+
+```
+[rails]
+IP_ADDRESS
+
+[rails:vars]
+app_name=APP_NAME
+user_password=PASSWORD #(encrypted in md5)
+monit_user=MONIT_USERNAME
+monit_password=MONIT_PASSWORD #(plain text)
+ruby_version=2.3.1
+gmail_user=GMAIL_EMAIL_ADDRESS
+gmail_password=GMAILPLAIN_TEXT_PASSWORD
+monit_allowed_ip=MONIT_ALLOWED_IP
+```
