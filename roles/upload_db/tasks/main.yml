@@ -8,4 +8,4 @@
   copy: src={{ app_name }}.sql dest=/home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql
 
 - name: restore db
-  command: psql {{ app_name }}_production < /home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql -U {{ app_name }}
+  shell: "psql {{ app_name }}_production < /home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql -U {{ app_name }}"
