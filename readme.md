@@ -1,6 +1,6 @@
 # Purpose
 
-Automated script to setup new server and deploy Rails application along with databse dump.
+Automated script to setup new server and deploy Rails application along with database dump.
 
 
 ## Preparation
