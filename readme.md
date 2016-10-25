@@ -1,3 +1,8 @@
+# Purpose
+
+Automated script to setup new server and deploy Rails application along with databse dump.
+
+
 ## Preparation
 
 1. Execute within your rails app directory: `git clone git@github.com:Freika/rails_server.git server`
@@ -6,6 +11,25 @@
 4. Update `server/roles/nginx/templates/nickshaker` with your domain and app name in path.
 5. Place you postgres database dump as `server/app_name.sql`. Dump must be created with `pg_dump app_name < app_name.sql`
 5. Update IP address of your server in `config/deploy/production.rb` and set user value to `deploy`.
+
+
+## hosts file
+Create file `hosts` in root dir of ansible script. Here is an example:
+
+```
+[rails]
+IP_ADDRESS
+
+[rails:vars]
+app_name=APP_NAME
+user_password=PASSWORD          # (encrypted in md5)
+monit_user=MONIT_USERNAME
+monit_password=MONIT_PASSWORD   # (plain text)
+ruby_version=2.3.1
+gmail_user=GMAIL_EMAIL_ADDRESS
+gmail_password=GMAILPLAIN_TEXT_PASSWORD
+monit_allowed_ip=MONIT_ALLOWED_IP
+```
 
 ## Usage
 
@@ -19,20 +43,9 @@
 
 Just run steps from 2 to 5 from Usage. You'll also want to update files from Preparation as appropriate.
 
-## hosts file
-Create file `hosts` in root dir of ansible script. Here is an example:
+## Todo
 
-```
-[rails]
-IP_ADDRESS
-
-[rails:vars]
-app_name=APP_NAME
-user_password=PASSWORD #(encrypted in md5)
-monit_user=MONIT_USERNAME
-monit_password=MONIT_PASSWORD #(plain text)
-ruby_version=2.3.1
-gmail_user=GMAIL_EMAIL_ADDRESS
-gmail_password=GMAILPLAIN_TEXT_PASSWORD
-monit_allowed_ip=MONIT_ALLOWED_IP
-```
+- Creating swap 2gb (user can set variable)
+- Creating backups for postgres databases every 24 hours
+- Uploading daily backups via WebDAV
+- Setup Fail2ban
