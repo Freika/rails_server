@@ -1,5 +1,5 @@
 - name: Upload DB
-  hosts: all
+  hosts: rails
   remote_user: deploy
   roles:
     - { role: upload_db }

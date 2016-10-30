@@ -1,5 +1,6 @@
 ---
-# Add deploy user, ssh key, setup ohmyzsh and install nginx with middleman.dev default host.
+# Add deploy user, ssh key, setup ohmyzsh and install nginx
+# with middleman.dev as default host.
 
 - name: Setup user
   hosts: all
