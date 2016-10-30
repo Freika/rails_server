@@ -1,6 +1,6 @@
 - name: Upload database.yml
   template:
-    src: templates/database
+    src: templates/database.yml
     dest: /home/deploy/var/www/{{ app_name }}/shared/config/database.yml
 
 - name: Upload db dump
