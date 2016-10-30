@@ -2,13 +2,23 @@
 # Configure nginx and setup app dir along with default host. Restart nginx.
 
 - name: Create directories
-  file: path=/home/deploy/var/www/ state=directory owner=deploy mode=0755
+  file:
+    path: /home/deploy/var/www/
+    state: directory
+    owner: deploy mode=0755
 
 - name: Setup default nginx directory
-  file: path=/home/deploy/var/www/{{ default_host }}/html state=directory mode=0755
+  file:
+    path: /home/deploy/var/www/{{ default_host }}/html
+    state: directory
+    mode: 0755
 
 - name: Setup default nginx page
-  template: src=templates/index.html dest=/home/deploy/var/www/{{ default_host }}/html/index.html owner=deploy mode=0644
+  template:
+    src: templates/index.html
+    dest: /home/deploy/var/www/{{ default_host }}/html/index.html
+    owner: deploy
+    mode: 0644
 
 - name: Copy nginx sites-available file
   become: yes
@@ -16,8 +26,14 @@
 
 - name: Fill {{ default_host }} nginx config file
   become: yes
-  template: src=templates/{{ default_host }} dest=/etc/nginx/sites-available/{{ default_host }}
+  template:
+    src: templates/{{ default_host }}
+    dest: /etc/nginx/sites-available/{{ default_host }}
 
 - name: Symlink sites-available to sites-enabled
   become: yes
-  file: src=/etc/nginx/sites-available/{{ default_host }} dest=/etc/nginx/sites-enabled/{{ default_host }} state=link force=yes
+  file:
+    src: /etc/nginx/sites-available/{{ default_host }}
+    dest: /etc/nginx/sites-enabled/{{ default_host }}
+    state: link
+    force: yes

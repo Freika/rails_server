@@ -21,3 +21,9 @@
   remote_user: deploy
   roles:
     - role: upload_db
+
+- name: Cron tasks for backup
+  hosts: rails
+  remote_user: deploy
+  roles:
+    - role: cron_backup
