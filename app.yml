@@ -2,7 +2,7 @@
   hosts: all
   remote_user: deploy
   roles:
-    - { role: app }
+    - role: app
 
 - name: Add Rails app database and user
   hosts: all
@@ -14,4 +14,4 @@
   hosts: all
   remote_user: deploy
   roles:
-    - { role: upload_db }
+    - role: upload_db

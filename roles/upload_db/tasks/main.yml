@@ -1,11 +1,13 @@
 - name: Upload database.yml
-  copy:
-    src: templates/database.yml
+  template:
+    src: templates/database
     dest: /home/deploy/var/www/{{ app_name }}/shared/config/database.yml
 
 - name: Upload db dump
   remote_user: deploy
-  copy: src={{ app_name }}.sql dest=/home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql
+  copy:
+    src: {{ app_name }}.sql
+    dest: /home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql
 
 - name: restore db
   shell: "psql {{ app_name }}_production < /home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql -U {{ app_name }}"
