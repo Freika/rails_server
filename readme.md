@@ -6,30 +6,33 @@ Automated script to setup new server and deploy Rails application along with dat
 ## Preparation
 
 1. Execute within your rails app directory: `git clone git@github.com:Freika/rails_server.git server`
-2. Open file `server/hosts` and replace values with your own. User and database passwords should be encrypted (http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module)
-3. Update `server/roles/upload_db/templates/database.yml` with your credentials
-4. Update `server/roles/nginx/templates/nickshaker` with your domain and app name in path.
-5. Place you postgres database dump as `server/app_name.sql`. Dump must be created with `pg_dump --no-owner app_name > app_name.sql`
+2. Open file `server/hosts` and replace values with your own. User and database passwords should be [encrypted](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module)
+3. Update `server/roles/nginx/templates/nginx_virtual_host` with your domain.
+4. Place you postgres database dump at `server/app_name.sql`. Dump must be created with following command: `pg_dump --no-owner app_name > app_name.sql`
 5. Update IP address of your server in `config/deploy/production.rb` and set user value to `deploy`.
-6. Install roles from ansible-galaxy: `ansible-galaxy install manala.git manala.zsh mashimom.oh-my-zsh pgolm.monit geerlingguy.passenger DavidWittman.redis rvm_io.rvm1-ruby ANXS.postgresql`
+6. Install roles from ansible-galaxy: 
+```
+ansible-galaxy install manala.git manala.zsh mashimom.oh-my-zsh pgolm.monit geerlingguy.passenger DavidWittman.redis rvm_io.rvm1-ruby ANXS.postgresql
+```
 
 
 ## hosts file
-Create file `hosts` in root dir of ansible script. Here is an example:
+Create file `hosts` in root directory of ansible script. Here is an example:
 
 ```
 [rails]
-IP_ADDRESS
+IP_ADDRESS                      # Your server IP address
 
 [rails:vars]
-app_name=APP_NAME
-user_password=PASSWORD          # (encrypted in md5)
-monit_user=MONIT_USERNAME
-monit_password=MONIT_PASSWORD   # (plain text)
-ruby_version=2.3.1
-gmail_user=GMAIL_EMAIL_ADDRESS
-gmail_password=GMAILPLAIN_TEXT_PASSWORD
-monit_allowed_ip=MONIT_ALLOWED_IP
+app_name=APP_NAME               # Your application name
+user_password=PASSWORD          # Password for user deploy, encrypted in md5
+monit_user=MONIT_USERNAME       # Username for monit
+monit_password=MONIT_PASSWORD   # Password for monit, plain text
+ruby_version=2.3.1              # Ruby version
+gmail_user=user@gmail.com       # Gmail account email for monit notifications
+gmail_password=GMAIL_PASSWORD   # Gmail account password for monit notifications
+monit_allowed_ip=0.0.0.0        # Allowed IP for monit sign in
+postgres_password=00000000      # Your app database password (for database.yml)
 ```
 
 ## Usage

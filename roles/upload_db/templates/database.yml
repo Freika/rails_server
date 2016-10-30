@@ -4,6 +4,6 @@ production:
   pool: 5
   timeout: 5000
   username: {{ app_name }}
-  password: '00000000'
+  password: {{ postgres_password }}
   host: localhost
   reconnect: true

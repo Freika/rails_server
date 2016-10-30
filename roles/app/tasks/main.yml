@@ -3,7 +3,9 @@
 
 - name: Add virtual host to nginx
   become: yes
-  template: src=templates/{{ app_name }} dest=/etc/nginx/sites-available/{{ app_name }}
+  template:
+    src: templates/nginx_virtual_host
+    dest: /etc/nginx/sites-available/{{ app_name }}
 
 - name: Create symlink from sites-available to sites-enabled
   become: yes
