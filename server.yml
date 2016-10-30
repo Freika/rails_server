@@ -23,6 +23,16 @@
   roles:
     - { role: common }
 
+- name: Add swap file
+  hosts: all
+  remote_user: deploy
+  become: yes
+  roles:
+    - role: kamaln7.swapfile
+      swapfile_size: 2GB
+      swapfile_swappiness: 10
+      swapfile_location: /mnt/swapfile
+
 - name: Setup monit
   hosts: all
   remote_user: root

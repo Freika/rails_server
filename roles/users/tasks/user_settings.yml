@@ -2,3 +2,6 @@
 
 - name: Install vim
   apt: name=vim
+
+- name: Install htop
+  apt: name=htop
