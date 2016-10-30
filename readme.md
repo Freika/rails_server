@@ -61,7 +61,6 @@ gmail_user=user@gmail.com       # Gmail account email for monit notifications
 gmail_password=GMAIL_PASSWORD   # Gmail account password for monit notifications
 monit_allowed_ip=0.0.0.0        # Allowed IP for monit sign in
 postgres_password=00000000      # Your app database password (for database.yml)
-swap_size=2GB                   # Swapfile size
 ```
 
 ## Usage
