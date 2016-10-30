@@ -1,8 +1,8 @@
 server {
-        server_name nickshaker.dev;
+        server_name {{ app_name }}.dev;
         passenger_enabled on;
         rails_env    production;
-        root         /home/deploy/var/www/nickshaker/current/public;
+        root         /home/deploy/var/www/{{ app_name }}/current/public;
 
         # redirect server error pages to the static page /50x.html
         error_page   500 502 503 504  /50x.html;
