@@ -1,0 +1,5 @@
+- name: Run local cap production deploy:check
+  shell: "cap production deploy:check"
+  ignore_errors: yes
+  register: command_result
+  failed_when: "'FAILED' in command_result.stderr"

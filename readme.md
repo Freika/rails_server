@@ -43,7 +43,6 @@ Ubuntu 16.04 or newer
 ansible-galaxy install manala.git manala.zsh mashimom.oh-my-zsh pgolm.monit geerlingguy.passenger DavidWittman.redis rvm_io.rvm1-ruby ANXS.postgresql kamaln7.swapfile
 ```
 
-
 ## hosts file
 Create file `hosts` in root directory of ansible script. Here is an example:
 
@@ -66,10 +65,9 @@ postgres_password=00000000      # Your app database password (for database.yml)
 ## Usage
 
 1. Run `ansible-playbook server/python.yml server/server.yml -i server/hosts` to setup users and all necessary software
-2. Run `cap production deploy:check` to create necessary infrastructure for capistrano 3
-3. Run `ansible-playbook server/app.yml -i server/hosts` to create Nginx virtual host for your app, create database for it and upload database dump on server.
-4. Run `cap production deploy`. If it failed because if not found active support 5, just run it one more time.
-5. You are awesome!
+2. Run `ansible-playbook server/app.yml -i server/hosts` to create Nginx virtual host for your app, create database for it and upload database dump on server.
+3. Run `cap production deploy`. If it failed because if not found active support 5, just run it one more time.
+4. You are awesome!
 
 ## Deploying application to already configured server
 
