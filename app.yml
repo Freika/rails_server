@@ -21,3 +21,9 @@
   remote_user: deploy
   roles:
     - role: upload_db
+
+- name: Automate backups
+  hosts: rails
+  remote_user: deploy
+  roles:
+    - role: backups

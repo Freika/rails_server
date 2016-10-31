@@ -1,5 +1,3 @@
----
-
 - name: "Add {{ app_name }} app database"
   postgresql_db: name={{ app_name }}_production
                  encoding='UTF-8'

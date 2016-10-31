@@ -1,0 +1,38 @@
+- name: Install backup gem
+  become: yes
+  shell: "gem install backup"
+
+- name: Install yandex-disk gem
+  become: yes
+  shell: "gem install yandex-disk"
+
+- name: Create backups directory
+  file:
+    path: /home/deploy/var/www/{{ app_name }}/backups
+    state: directory
+    owner: deploy
+    mode: 0755
+
+- name: Create backups directory
+  file:
+    path: /home/deploy/var/www/{{ app_name }}/backups/models
+    state: directory
+    owner: deploy
+    mode: 0755
+
+- name: Upload backups config
+  template:
+    src: templates/config.rb
+    dest: /home/deploy/var/www/{{ app_name }}/backups/config.rb
+
+- name: Upload backups model
+  template:
+    src: templates/backup_model.rb
+    dest: /home/deploy/var/www/{{ app_name }}/backups/models/{{ app_name }}.rb
+
+- name: Setup cron task for daily backups
+  cron:
+    name: "{{ app_name }} db daily backup"
+    special_time: daily
+    job: cd /home/deploy/var/www/{{ app_name }}/backups && backup perform -t {{ app_name }} --config-file config.rb
+
