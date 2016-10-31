@@ -1,0 +1,46 @@
+# - name: Create backups directory
+#   file:
+#     path: /home/deploy/var/www/{{app_name}}/shared/backups
+#     state: directory
+#     owner: deploy
+#     mode: 0755
+
+# - name: Upload backup script
+#   template:
+#     src: templates/backup.sh
+#     dest: /home/deploy/var/www/{{ app_name }}/shared/backup.sh
+
+# - name: Upload cleaning script
+#   template:
+#     src: templates/remove_old_backups.sh
+#     dest: /home/deploy/var/www/{{ app_name }}/shared/remove_old_backups.sh
+
+# - name: Setup cron task for daily backups
+#   cron:
+#     name: "{{ app_name }} db daily backup to /home/deploy/var/www/{{ app_name }}/shared/backups/"
+#     special_time: daily
+#     job: "/home/deploy/var/www/{{ app_name }}/shared/backup.sh"
+
+# - name: Setup cron task for removing 8 days old backups
+#   cron:
+#     name: "Remove older than week {{ app_name }} backups"
+#     special_time: daily
+#     job: "/home/deploy/var/www/{{ app_name }}/shared/remove_old_backups.sh"
+
+- name: Install backup gem
+  shell: "gem install backup"
+
+- name: Install yandex-disk gem
+  shell: "gem install yandex-disk"
+
+- name: Create backups directory
+  file:
+    path: /home/deploy/var/www/{{ app_name }}/backups
+    state: directory
+    owner: deploy
+    mode: 0755
+
+- name: Upload Gemfile
+  template:
+    src: templates/Gemfile
+    dest: /home/deploy/var/www/{{ app_name }}/backups/Gemfile

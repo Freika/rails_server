@@ -26,4 +26,4 @@
   hosts: rails
   remote_user: deploy
   roles:
-    - role: cron_backup
+    - role: backups
