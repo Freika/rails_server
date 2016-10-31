@@ -22,7 +22,7 @@
   roles:
     - role: upload_db
 
-- name: Cron tasks for backup
+- name: Automate backups
   hosts: rails
   remote_user: deploy
   roles:

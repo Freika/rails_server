@@ -2,32 +2,6 @@
 
 This is an automated script to help you setup new server and deploy Rails application along with database dump.
 
-# What it does?
-
-This script goes through full server configuration process. For now it does next things (in order of applying):
-
-### python.yml
-
-- Installs Python2 in order to allow Ansible do all the work
-- Installs pip, python packet manager
-
-### server.yml
-
-- Creates `deploy` user which is our main user for application deployments
-- Configures `zsh` and `oh-my-zsh` for both `root` and `deploy` users
-- Installs `vim` and `htop`
-- Installs `monit` for server state monitoring and notifications (RAM, HDD, etc)
-- Installs `nginx` with `passenger` to serve your Rails applications
-- Installs `Redis`
-- Installs `Ruby`
-- Installs `PostgreSQL`
-
-### app.yml
-
-- Configures Nginx to server your Rails application
-- Creates PostgreSQL database and user for your Rails application
-- Uploads database dump and restores it on server
-
 ## Requirements:
 Ubuntu 16.04 or newer
 
@@ -64,10 +38,41 @@ postgres_password=00000000      # Your app database password (for database.yml)
 
 ## Usage
 
-1. Run `ansible-playbook server/python.yml server/server.yml -i server/hosts` to setup users and all necessary software
-2. Run `ansible-playbook server/app.yml -i server/hosts` to create Nginx virtual host for your app, create database for it and upload database dump on server.
-3. Run `cap production deploy`. If it failed because if not found active support 5, just run it one more time.
-4. You are awesome!
+### Server
+
+Run
+```
+ansible-playbook server/python.yml server/server.yml server/app.yml -i server/hosts
+```
+
+This script goes through full server configuration process. For now it does next things (in order of applying):
+
+#### python.yml
+
+- Installs Python2 in order to allow Ansible do all the work
+- Installs pip, python packet manager
+
+#### server.yml
+
+- Creates `deploy` user which is our main user for application deployments
+- Configures `zsh` and `oh-my-zsh` for both `root` and `deploy` users
+- Installs `vim` and `htop`
+- Installs `monit` for server state monitoring and notifications (RAM, HDD, etc)
+- Installs `nginx` with `passenger` to serve your Rails applications
+- Installs `Redis`
+- Installs `Ruby`
+- Installs `PostgreSQL`
+
+#### app.yml
+
+- Configures Nginx to server your Rails application
+- Creates PostgreSQL database and user for your Rails application
+- Uploads database dump and restores it on server
+
+### Application
+Run `cap production deploy` to start deployment process. If it failed because if not found active support 5, just run it one more time.
+
+### That's all!
 
 ## Deploying application to already configured server
 
