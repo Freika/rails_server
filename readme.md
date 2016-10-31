@@ -68,6 +68,7 @@ This script goes through full server configuration process. For now it does next
 - Configures Nginx to server your Rails application
 - Creates PostgreSQL database and user for your Rails application
 - Uploads database dump and restores it on server
+- Setups daily DB backups with uploading to Yandex Disk
 
 ### Application
 Run `cap production deploy` to start deployment process. If it failed because if not found active support 5, just run it one more time.
@@ -80,6 +81,4 @@ Just run steps from 2 to 5 from Usage. You'll also want to update files from Pre
 
 ## Todo
 
-- Creating backups for postgres databases every 24 hours
-- Uploading daily backups via WebDAV
 - Setup Fail2ban
