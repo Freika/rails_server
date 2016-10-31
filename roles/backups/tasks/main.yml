@@ -58,3 +58,10 @@
   template:
     src: templates/backup_model.rb
     dest: /home/deploy/var/www/{{ app_name }}/backups/models/{{ app_name }}.rb
+
+- name: Setup cron task for daily backups
+  cron:
+    name: "{{ app_name }} db daily backup"
+    special_time: daily
+    job: cd /home/deploy/var/www/{{ app_name }}/backups && backup perform -t {{ app_name }} --config-file config.rb
+
