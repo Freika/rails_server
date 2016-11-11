@@ -1,3 +1,4 @@
 *.retry
 hosts
 *.sql
+.vagrant

@@ -5,7 +5,8 @@
   file:
     path: /home/deploy/var/www/
     state: directory
-    owner: deploy mode=0755
+    owner: deploy
+    mode: 0755
 
 - name: Setup default nginx directory
   file:
@@ -19,10 +20,6 @@
     dest: /home/deploy/var/www/{{ default_host }}/html/index.html
     owner: deploy
     mode: 0644
-
-- name: Copy nginx sites-available file
-  become: yes
-  command: cp /etc/nginx/sites-available/default /etc/nginx/sites-available/{{ default_host }}
 
 - name: Fill {{ default_host }} nginx config file
   become: yes
