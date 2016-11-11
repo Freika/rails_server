@@ -86,6 +86,10 @@ Run `cap production deploy` to start deployment process. If it failed because if
 
 Just run `ansible-playbook server/app.yml -i server/hosts`. You'll also want to update files from Preparation as appropriate.
 
+## Local testing
+
+Install Vagrant, run `vagrant up` and then provision it as if it's just your production server.
+
 ## Todo
 
 - Setup Fail2ban
