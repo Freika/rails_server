@@ -5,6 +5,7 @@
 - name: Setup user
   hosts: all
   remote_user: root
+  become: yes
   roles:
     - { role: users }
     - { role: manala.git }
@@ -38,8 +39,8 @@
   hosts: all
   remote_user: root
   roles:
-    - { role: pgolm.monit }
-    - { role: setup_monit }
+    - { role: pgolm.monit, when: monit_enabled }
+    - { role: setup_monit, when: monit_enabled }
 
 - name: Setup nginx and passenger
   hosts: all
@@ -55,17 +56,16 @@
   roles:
     - { role: geerlingguy.passenger }
     - { role: nginx }
-    # - { role: passenger }
 
 - name: Install redis
   hosts: all
   remote_user: deploy
   become: yes
   vars:
-    - redis_bind: 127.0.0.1
-    - redis_version: 3.2.3
+    - redis_port: 6379
+    - redis_bind_interface: 127.0.0.1
   roles:
-    - { role: DavidWittman.redis }
+    - { role: geerlingguy.redis }
 
 - name: Install Ruby
   hosts: all
@@ -86,7 +86,6 @@
       postgresql_version: 9.5
       postgresql_encoding: 'UTF-8'
       postgresql_locale: 'en_US.UTF-8'
-
       postgresql_admin_user: 'postgres'
       postgresql_default_auth_method: 'trust'
 

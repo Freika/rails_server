@@ -27,13 +27,20 @@ IP_ADDRESS                      # Your server IP address
 [rails:vars]
 app_name=APP_NAME               # Your application name
 user_password=PASSWORD          # Password for user deploy, encrypted in md5
+
+monit_enabled=true              # Enable or disable monit installation
 monit_user=MONIT_USERNAME       # Username for monit
 monit_password=MONIT_PASSWORD   # Password for monit, plain text
-ruby_version=2.3.1              # Ruby version
+monit_allowed_ip=0.0.0.0        # Allowed IP for monit sign in
 gmail_user=user@gmail.com       # Gmail account email for monit notifications
 gmail_password=GMAIL_PASSWORD   # Gmail account password for monit notifications
-monit_allowed_ip=0.0.0.0        # Allowed IP for monit sign in
+
+ruby_version=2.3.1              # Ruby version
+
 postgres_password=00000000      # Your app database password (for database.yml)
+
+ansible_ssh_user=vagrant        # For local testing
+ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
 ```
 
 ## Usage
@@ -77,7 +84,7 @@ Run `cap production deploy` to start deployment process. If it failed because if
 
 ## Deploying application to already configured server
 
-Just run steps from 2 to 5 from Usage. You'll also want to update files from Preparation as appropriate.
+Just run `ansible-playbook server/app.yml -i server/hosts`. You'll also want to update files from Preparation as appropriate.
 
 ## Todo
 
