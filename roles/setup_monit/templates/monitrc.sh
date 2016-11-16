@@ -2,14 +2,6 @@
 ## Monit control file
 ###############################################################################
 ##
-## Comments begin with a '#' and extend through the end of the line. Keywords
-## are case insensitive. All path's MUST BE FULLY QUALIFIED, starting with '/'.
-##
-## Below you will find examples of some frequently used statements. For
-## information about the control file, a complete list of statements and
-## options please have a look in the monit manual.
-##
-##
 ###############################################################################
 ## Global section
 ###############################################################################
@@ -20,81 +12,20 @@ set daemon 60           # check services at 2-minute intervals
     with start delay 60  # optional: delay the first check by 4-minutes
 #                           # (by default check immediately after monit start)
 #
-#
 ## Set syslog logging with the 'daemon' facility. If the FACILITY option is
 ## omitted, monit will use 'user' facility by default. If you want to log to
 ## a stand alone log file instead, specify the path to a log file
 #
 set logfile syslog facility log_daemon
-#
-#
-### Set the location of monit id file which saves the unique id specific for
-### given monit. The id is generated and stored on first monit start.
-### By default the file is placed in $HOME/.monit.id.
-#
-# set idfile /var/.monit.id
-#
-### Set the location of monit state file which saves the monitoring state
-### on each cycle. By default the file is placed in $HOME/.monit.state. If
-### state file is stored on persistent filesystem, monit will recover the
-### monitoring state across reboots. If it is on temporary filesystem, the
-### state will be lost on reboot.
-#
-# set statefile /var/.monit.state
-#
-## Set the list of mail servers for alert delivery. Multiple servers may be
-## specified using comma separator. By default monit uses port 25 - this
-## is possible to override with the PORT option.
-#
-# set mailserver localhost
+# set mailserver smtp.gmail.com port 587
+#    username {{ gmail_user }} password {{ gmail_password }}
+#    using tlsv12
 
-set mailserver smtp.gmail.com port 587
-   username {{ gmail_user }} password {{ gmail_password }}
-   using tlsv12
-
-#
-#
-## By default monit will drop alert events if no mail servers are available.
-## If you want to keep the alerts for a later delivery retry, you can use the
-## EVENTQUEUE statement. The base directory where undelivered alerts will be
-## stored is specified by the BASEDIR option. You can limit the maximal queue
-## size using the SLOTS option (if omitted, the queue is limited by space
-## available in the back end filesystem).
-#
-# set eventqueue
-#     basedir /var/monit  # set the base directory where events will be stored
-#     slots 100           # optionaly limit the queue size
-#
-#
 ## Send status and events to M/Monit (Monit central management: for more
 ## informations about M/Monit see http://www.tildeslash.com/mmonit).
 #
 # set mmonit http://monit:monit@192.168.1.10:8080/collector
 #
-#
-## Monit by default uses the following alert mail format:
-##
-## --8<--
-## From: monit@$HOST                         # sender
-## Subject: monit alert --  $EVENT $SERVICE  # subject
-##
-## $EVENT Service $SERVICE                   #
-##                                           #
-##  Date:        $DATE                   #
-##  Action:      $ACTION                 #
-##  Host:        $HOST                   # body
-##  Description: $DESCRIPTION            #
-##                                           #
-## Your faithful employee,                   #
-## monit                                     #
-## --8<--
-##
-## You can override this message format or parts of it, such as subject
-## or sender using the MAIL-FORMAT statement. Macros such as $DATE, etc.
-## are expanded at runtime. For example, to override the sender:
-
-# set mail-format { from: monit@conexion-empleo.com }
-
 #
 ## You can set alert recipients here whom will receive alerts if/when a
 ## service defined in this file has errors. Alerts may be restricted on
@@ -240,10 +171,11 @@ check process nginx with pidfile /run/nginx.pid
   start program = "/etc/init.d/nginx start"
   stop  program = "/etc/init.d/nginx stop"
   if failed host 127.0.0.1 port 80 then restart
-  if cpu is greater than 40% for 2 cycles then alert
+  if cpu is greater than 40% for 2 cycles then exec "/etc/monit/slack_notification.sh"
   if cpu > 60% for 5 cycles then restart
   if 10 restarts within 10 cycles then timeout
 
+# redis
 check process redis with pidfile /var/run/redis/6379.pid
   group database
   start program = "/etc/init.d/redis_6379 start"
@@ -251,11 +183,13 @@ check process redis with pidfile /var/run/redis/6379.pid
   if failed host 127.0.0.1 port 6379 then restart
   if 15 restarts within 15 cycles then timeout
 
+# postgres
 check process postgres with pidfile /var/lib/postgresql/9.5/main/postmaster.pid
   group database
   start program = "/etc/init.d/postgresql start"
   stop  program = "/etc/init.d/postgresql stop"
   if 15 restarts within 15 cycles then timeout
 
+# HDD
 check device var with path /var
-  if SPACE usage > 80% then alert
+  if SPACE usage > 80% then exec "/etc/monit/slack_notification.sh"

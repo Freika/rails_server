@@ -5,6 +5,12 @@
   template: src=templates/monitrc.sh dest=/etc/monit/monitrc owner=root
   notify: reload monit
 
+- name: Upload slack webhook script
+  template:
+    src: templates/slack_notification.sh
+    dest: /etc/monit/slack_notification.sh
+    owner: root
+
 # - name: Upload redis-server config
 #   copy: src=templates/redis-server.conf dest=/etc/monit/redis-server.conf owner=root
 #   notify: reload monit
