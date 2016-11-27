@@ -5,9 +5,11 @@
 
 - name: Upload db dump
   remote_user: deploy
+  when: restore_backup
   copy:
     src: "{{ app_name }}.sql"
     dest: /home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql
 
 - name: restore db
+  when: restore_backup
   shell: "psql {{ app_name }}_production < /home/deploy/var/www/{{ app_name }}/shared/{{ app_name }}.sql -U {{ app_name }}"

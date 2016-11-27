@@ -1,6 +1,4 @@
 ---
-- debug: msg="System {{ gmail_user }} has uuid {{ gmail_password }}"
-
 - name: Upload monit config
   template: src=templates/monitrc.sh dest=/etc/monit/monitrc owner=root
   notify: reload monit
