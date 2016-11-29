@@ -39,8 +39,8 @@
   hosts: all
   remote_user: root
   roles:
-    - { role: pgolm.monit, when: monit_enabled }
-    - { role: setup_monit, when: monit_enabled }
+    - { role: pgolm.monit, when: (monit_enabled is defined) and monit_enabled }
+    - { role: setup_monit, when: (monit_enabled is defined) and monit_enabled }
 
 - name: Setup nginx and passenger
   hosts: all
