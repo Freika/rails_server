@@ -1,5 +1,5 @@
 server {
-        server_name {{ app_name }}.dev;
+        server_name {{ app_domain }};
         passenger_enabled on;
         rails_env    production;
         root         /home/deploy/var/www/{{ app_name }}/current/public;

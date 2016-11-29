@@ -1,4 +1,4 @@
 ---
 
 - name: Set default ruby version
-  shell: 'bash -lc "rvm use 2.3.1 --default"'
+  shell: 'bash -lc "rvm use {{ ruby_version }} --default"'

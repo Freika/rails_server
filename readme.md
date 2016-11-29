@@ -9,10 +9,9 @@ Ubuntu 16.04 or newer
 
 1. Execute within your rails app directory: `git clone git@github.com:Freika/rails_server.git server`
 2. Create file `server/hosts` and set values as shown in an example below. User and database passwords should be [encrypted](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module). Don't forget to provide `yandex_disk_access_token` for backups, use this [guide](https://github.com/anjlab/yandex-disk). It requires to allow access to Yandex Disk REST API **AND** Yandex Disk WebDAB API.
-3. Update `server/roles/nginx/templates/nginx_virtual_host` with your domain.
-4. Place you postgres database dump at `server/app_name.sql`. Dump must be created with following command: `pg_dump --no-owner app_name > app_name.sql -U DB_USERNAME`
-5. Update IP address of your server in `config/deploy/production.rb` and set user value to `deploy`.
-6. Install roles from ansible-galaxy:
+3. Place you postgres database dump at `server/app_name.sql`. Dump must be created with following command: `pg_dump --no-owner app_name > app_name.sql -U DB_USERNAME`
+4. Update IP address of your server in `config/deploy/production.rb` and set user value to `deploy`.
+5. Install roles from ansible-galaxy:
 ```
 ansible-galaxy install manala.git manala.zsh mashimom.oh-my-zsh pgolm.monit geerlingguy.passenger DavidWittman.redis rvm_io.rvm1-ruby ANXS.postgresql kamaln7.swapfile
 ```
@@ -26,6 +25,7 @@ IP_ADDRESS                      # Your server IP address
 
 [rails:vars]
 app_name=APP_NAME               # Your application name
+app_domain=example.com          # Your app domain (for nginx configuration)
 user_password=PASSWORD          # Password for user deploy, encrypted in md5
 
 monit_enabled=true              # Enable or disable monit installation
