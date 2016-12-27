@@ -17,6 +17,22 @@ set daemon 60           # check services at 2-minute intervals
 ## a stand alone log file instead, specify the path to a log file
 #
 set logfile syslog facility log_daemon
+# set mailserver smtp.gmail.com port 587
+#    username username password password
+#    using tlsv12
+
+## Send status and events to M/Monit (Monit central management: for more
+## informations about M/Monit see http://www.tildeslash.com/mmonit).
+#
+# set mmonit http://monit:monit@192.168.1.10:8080/collector
+#
+#
+## You can set alert recipients here whom will receive alerts if/when a
+## service defined in this file has errors. Alerts may be restricted on
+## events by using a filter as in the second example below.
+#
+
+# set alert user@example.com
 
 # set alert manager@foo.bar only on { timeout }  # receive just service-
 #                                                # timeout alert

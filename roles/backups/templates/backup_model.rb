@@ -10,8 +10,6 @@
 # http://backup.github.io/backup
 #
 
-require 'yandex/disk/backup/storage'
-
 Model.new(:{{ app_name }}, 'Description for {{ app_name }} backup') do
   database PostgreSQL do |db|
     db.name               = "{{ app_name }}_production"
@@ -22,21 +20,18 @@ Model.new(:{{ app_name }}, 'Description for {{ app_name }} backup') do
     # db.socket             = "/tmp/pg.sock"
   end
 
-  ##
-  # Local (Copy) [Storage]
-  #
-  store_with Local do |local|
-    local.path       = "~/backups/"
-    local.keep       = 7
-    # local.keep       = Time.now - 2592000 # Remove all backups older than 1 month.
-  end
-
   compress_with Gzip
 
-  store_with Yandex::Disk do |disk|
-    disk.access_token = "{{ yandex_disk_access_token }}"
-    disk.path         = '/backups/'
-    disk.keep         = 5
+  store_with S3 do |s3|
+    # AWS Credentials
+    s3.access_key_id     = "{{ aws_key }}"
+    s3.secret_access_key = "{{ aws_secret_key }}"
+    # Or, to use a IAM Profile:
+    # s3.use_iam_profile = true
+
+    s3.region             = '{{ aws_region }}'
+    s3.bucket             = '{{ aws_bucket_name }}'
+    s3.path               = 'backups/{{ app_name }}'
   end
 
   # notify_by Mail do |mail|

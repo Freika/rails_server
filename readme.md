@@ -33,12 +33,15 @@ monit_user=MONIT_USERNAME       # Username for monit
 monit_password=MONIT_PASSWORD   # Password for monit, plain text
 monit_allowed_ip=0.0.0.0        # Allowed IP for monit sign in
 
-ruby_version=2.3.1              # Ruby version
+ruby_version=2.3.3              # Ruby version
 
 restore_backup=true             # Make it false for fresh deploy
 postgres_password=00000000      # Your app database password (for database.yml)
 
-yandex_disk_access_token=TOKEN_FROM_YANDEX
+aws_key=xxxx
+aws_key_secret=xxxx
+aws_region=xxxx
+aws_bucket_name=xxxx
 
 slack_webhook_url=https://hooks.slack.com/services/SOME_GENERATED_VALUE
 
