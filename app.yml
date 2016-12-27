@@ -1,9 +1,3 @@
-- name: Create capistrano 3 infrastructure for application
-  hosts: 127.0.0.1
-  connection: local
-  roles:
-    - role: capistrano
-
 - name: Configure Nginx for app
   hosts: rails
   remote_user: deploy
@@ -26,4 +20,4 @@
   hosts: rails
   remote_user: deploy
   roles:
-    - role: backups
+    - { role: backups, when: (backup_to_aws is defined) and backup_to_aws }

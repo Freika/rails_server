@@ -38,10 +38,10 @@ ruby_version=2.3.3              # Ruby version
 restore_backup=true             # Make it false for fresh deploy
 postgres_password=00000000      # Your app database password (for database.yml)
 
-aws_key=xxxx
-aws_key_secret=xxxx
-aws_region=xxxx
-aws_bucket_name=xxxx
+aws_key=AWS_KEY
+aws_key_secret=AWS_SECRET_KEY
+aws_region=eu-west-1
+aws_bucket_name=YOUR_BUCKET_NAME
 
 slack_webhook_url=https://hooks.slack.com/services/SOME_GENERATED_VALUE
 
@@ -55,7 +55,9 @@ ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
 
 Run
 ```
-ansible-playbook server/python.yml server/server.yml server/app.yml -i server/hosts
+ansible-playbook server/python.yml server/server.yml
+cap production deploy:check
+ansible-playbook server/app.yml -i server/hosts
 ```
 
 This script goes through full server configuration process. For now it does next things (in order of applying):
@@ -84,7 +86,7 @@ This script goes through full server configuration process. For now it does next
 - Setups daily DB backups with uploading to Yandex Disk
 
 ### Application
-Run `cap production deploy` to start deployment process. If it failed because if not found active support 5, just run it one more time.
+Run `cap production deploy` to start deployment process.
 
 ### That's all!
 
