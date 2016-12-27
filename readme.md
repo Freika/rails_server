@@ -50,6 +50,9 @@ ansible_ssh_user=vagrant        # For local testing
 ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
 ```
 
+**IMPORTANT**
+After first deploy and restore database from backup **don't forget** to change `restore_backup` value to `false`. In other case on next applying `app.yml` playbook your database will be rewrited with provided in `server` directory.
+
 ## Usage
 
 ### Server
