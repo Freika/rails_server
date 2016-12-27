@@ -32,24 +32,34 @@ Model.new(:{{ app_name }}, 'Description for {{ app_name }} backup') do
     s3.region             = '{{ aws_region }}'
     s3.bucket             = '{{ aws_bucket_name }}'
     s3.path               = 'backups'
+    s3.keep               = 30
   end
 
-  # notify_by Mail do |mail|
-  #   mail.on_success           = true
-  #   mail.on_warning           = true
-  #   mail.on_failure           = true
+  notify_by Slack do |slack|
+    slack.on_success = true
+    slack.on_warning = true
+    slack.on_failure = true
 
-  #   mail.from                 = "sender@email.com"
-  #   mail.to                   = "receiver@email.com"
-  #   mail.cc                   = "cc@email.com"
-  #   mail.bcc                  = "bcc@email.com"
-  #   mail.reply_to             = "reply_to@email.com"
-  #   mail.address              = "smtp.gmail.com"
-  #   mail.port                 = 587
-  #   mail.domain               = "your.host.name"
-  #   mail.user_name            = "sender@email.com"
-  #   mail.password             = "my_password"
-  #   mail.authentication       = "plain"
-  #   mail.encryption           = :starttls
-  # end
+    # The integration token
+    slack.webhook_url = '{{ slack_webhook_url }}'
+
+    ##
+    # Optional
+    #
+    # The channel to which messages will be sent
+    # slack.channel = 'my_channel'
+    #
+    # The username to display along with the notification
+    # slack.username = 'my_username'
+    #
+    # The emoji icon to use for notifications.
+    # See http://www.emoji-cheat-sheet.com for a list of icons.
+    # slack.icon_emoji = ':ghost:'
+    #
+    # Change default notifier message.
+    # See https://github.com/backup/backup/pull/698 for more information.
+    # slack.message = lambda do |model, data|
+    #   "[#{data[:status][:message]}] #{model.label} (#{model.trigger})"
+    # end
+  end
 end
