@@ -38,6 +38,7 @@ ruby_version=2.3.3              # Ruby version
 restore_backup=true             # Make it false for fresh deploy
 postgres_password=00000000      # Your app database password (for database.yml)
 
+backup_to_aws=true
 aws_key=AWS_KEY
 aws_key_secret=AWS_SECRET_KEY
 aws_region=eu-west-1

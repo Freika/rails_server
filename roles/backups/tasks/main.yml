@@ -1,6 +1,9 @@
 - name: Install backup gem
   become: yes
-  shell: "gem install backup"
+  shell: "gem install {{ item }}"
+  with_items:
+    - backup
+    - whenever
 
 - name: Create backups directory
   file:
@@ -16,19 +19,38 @@
     owner: deploy
     mode: 0755
 
+- name: Create config directory
+  file:
+    path: /home/deploy/var/www/{{ app_name }}/backups/config
+    state: directory
+    owner: deploy
+    mode: 0755
+
 - name: Upload backups config
   template:
     src: templates/config.rb
     dest: /home/deploy/var/www/{{ app_name }}/backups/config.rb
+
+- name: Upload schedule config
+  template:
+    src: templates/schedule.rb
+    dest: /home/deploy/var/www/{{ app_name }}/backups/config/schedule.rb
 
 - name: Upload backups model
   template:
     src: templates/backup_model.rb
     dest: /home/deploy/var/www/{{ app_name }}/backups/models/{{ app_name }}.rb
 
-- name: Setup cron task for daily backups
-  cron:
-    name: "{{ app_name }} db daily backup"
-    special_time: daily
-    job: cd /home/deploy/var/www/{{ app_name }}/backups && backup perform -t {{ app_name }} --config-file config.rb
+- name: Set debug result
+  shell: cd /home/deploy/var/www/{{ app_name }}/backups/ && whenever
+  register: result
+
+- debug:
+    msg: "{{ result }}"
+
+# - name: Setup cron task for daily backups
+#   become: yes
+#   cron:
+#     name: "{{ app_name }} db daily backup"
+#     job: 01 * * * * cd /home/deploy/var/www/{{ app_name }}/backups && backup perform -t {{ app_name }} --config-file config.rb
 

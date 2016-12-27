@@ -31,7 +31,7 @@ Model.new(:{{ app_name }}, 'Description for {{ app_name }} backup') do
 
     s3.region             = '{{ aws_region }}'
     s3.bucket             = '{{ aws_bucket_name }}'
-    s3.path               = 'backups/{{ app_name }}'
+    s3.path               = 'backups'
   end
 
   # notify_by Mail do |mail|
