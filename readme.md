@@ -8,7 +8,7 @@ Ubuntu 16.04 or newer
 ## Preparation
 
 1. Execute within your rails app directory: `git clone git@github.com:Freika/rails_server.git server`
-2. Create file `server/hosts` and set values as shown in an example below. User and database passwords should be [encrypted](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module). Don't forget to provide `yandex_disk_access_token` for backups, use this [guide](https://github.com/anjlab/yandex-disk). It requires to allow access to Yandex Disk REST API **AND** Yandex Disk WebDAB API.
+2. Create file `server/hosts` and set values as shown in an example below. User and database passwords should be [encrypted](http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module).
 3. Place you postgres database dump at `server/app_name.sql`. Dump must be created with following command: `pg_dump --no-owner app_name > app_name.sql -U DB_USERNAME`
 4. Update IP address of your server in `config/deploy/production.rb` and set user value to `deploy`.
 5. Install roles from ansible-galaxy:
