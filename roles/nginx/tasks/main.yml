@@ -1,10 +1,16 @@
 ---
 
-- name: Configure nginx
-  include: configure.yml
+- name: Create directories
+  file:
+    path: /home/deploy/var/www/
+    state: directory
+    owner: deploy
+    mode: 0755
+  notify: restart nginx
 
 - name: Remove passenger host
   file: path=/etc/nginx/sites-available/passenger state=absent
 
 - name: Remove passenger link
   file: path=/etc/nginx/sites-enabled/passenger state=absent
+

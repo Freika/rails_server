@@ -1,6 +1,5 @@
 ---
 # Add deploy user, ssh key, setup ohmyzsh and install nginx
-# with middleman.dev as default host.
 
 - name: Setup user
   hosts: all
@@ -47,12 +46,11 @@
   remote_user: deploy
   become: yes
   vars:
-    default_host: middleman.dev
     passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
     passenger_ruby: /usr/local/rvm/gems/ruby-{{ ruby_version }}/wrappers/ruby
     passenger_app_env: production
     passenger_app_root: /home/deploy/var/www/{{ app_name }}/current/public
-    passenger_server_name: "{{ app_name }}.dev"
+    passenger_server_name: "{{ app_domain }}"
   roles:
     - { role: geerlingguy.passenger }
     - { role: nginx }

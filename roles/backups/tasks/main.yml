@@ -33,4 +33,3 @@
     special_time: daily
     name: "{{ app_name }} db daily backup"
     job: "/usr/local/rvm/wrappers/ruby-{{ ruby_version }}/backup perform -t {{ app_name }} --config-file /home/deploy/var/www/{{ app_name }}/backups/config.rb"
-
