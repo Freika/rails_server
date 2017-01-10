@@ -1,0 +1,12 @@
+---
+# All roles are installed from Ansible Galaxy
+- src: manala.git
+- src: manala.zsh
+- src: mashimom.oh-my-zsh
+- src: pgolm.monit
+- src: geerlingguy.passenger
+- src: geerlingguy.nodejs
+- src: DavidWittman.redis
+- src: rvm_io.rvm1-ruby
+- src: ANXS.postgresql
+- src: kamaln7.swapfile

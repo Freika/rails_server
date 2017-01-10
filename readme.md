@@ -13,7 +13,7 @@ Ubuntu 16.04 or newer
 4. Update IP address of your server in `config/deploy/production.rb` and set user value to `deploy`.
 5. Install roles from ansible-galaxy:
 ```
-ansible-galaxy install manala.git manala.zsh mashimom.oh-my-zsh pgolm.monit geerlingguy.passenger DavidWittman.redis rvm_io.rvm1-ruby ANXS.postgresql kamaln7.swapfile
+ansible-galaxy install -r server/requirements.yml
 ```
 
 ## hosts file
