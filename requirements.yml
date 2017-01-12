@@ -7,6 +7,6 @@
 - src: geerlingguy.passenger
 - src: geerlingguy.nodejs
 - src: DavidWittman.redis
-- src: rvm_io.rvm1-ruby
+- src: rvm_io.ruby
 - src: ANXS.postgresql
 - src: kamaln7.swapfile
