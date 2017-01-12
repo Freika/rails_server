@@ -1,6 +1,27 @@
 ---
 # Add deploy user, ssh key, setup ohmyzsh and install nginx
 
+- hosts: example
+  tasks:
+    - name: Update SSH configuration to be more secure.
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+        state: present
+      with_items:
+        - regexp: "^PasswordAuthentication"
+          line: "PasswordAuthentication no"
+        # - regexp: "^PermitRootLogin"
+        #   line: "PermitRootLogin no"
+        - regexp: "^Port"
+          line: "Port {{ ssh_port }}"
+      notify: restart ssh
+
+  handlers:
+    - name: restart ssh
+      service: name=ssh state=restarted
+
 - name: Setup user
   hosts: all
   remote_user: root
@@ -24,6 +45,7 @@
   roles:
     - { role: common }
     - { role: geerlingguy.nodejs }
+    - { role: geerlingguy.security }
 
 - name: Add swap file
   hosts: all

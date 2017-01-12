@@ -27,6 +27,7 @@ IP_ADDRESS                      # Your server IP address
 app_name=APP_NAME               # Your application name
 app_domain=example.com          # Your app domain (for nginx configuration)
 user_password=PASSWORD          # Password for user deploy, encrypted in md5
+ssh_port=2389
 
 monit_enabled=true              # Enable or disable monit installation
 monit_user=MONIT_USERNAME       # Username for monit
@@ -105,3 +106,5 @@ Install Vagrant, run `vagrant up` and then provision it as if it's just your pro
 ## Todo
 
 - Setup Fail2ban
+- Unattended updates
+- Ask user if he wants to restore backup
