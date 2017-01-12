@@ -88,7 +88,7 @@ This script goes through full server configuration process. For now it does next
 - Configures Nginx to server your Rails application
 - Creates PostgreSQL database and user for your Rails application
 - Uploads database dump and restores it on server
-- Setups daily DB backups with uploading to Yandex Disk
+- Setups daily DB backups with uploading to Amazon S3
 
 ### Application
 Run `cap production deploy` to start deployment process.
