@@ -64,7 +64,7 @@
     - redis_port: 6379
     - redis_bind_interface: 127.0.0.1
   roles:
-    - { role: geerlingguy.redis }
+    - { role: DavidWittman.redis }
 
 - name: Install Ruby
   hosts: all
@@ -81,7 +81,7 @@
   remote_user: deploy
   become: yes
   roles:
-    - role: ANXS.PostgreSQL
+    - role: ANXS.postgresql
       postgresql_version: 9.5
       postgresql_encoding: 'UTF-8'
       postgresql_locale: 'en_US.UTF-8'
