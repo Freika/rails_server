@@ -21,22 +21,33 @@ Create file `hosts` in root directory of ansible script. Here is an example:
 
 ```
 [rails]
-IP_ADDRESS                      # Your server IP address
+# Your server IP address
+IP_ADDRESS
 
 [rails:vars]
-app_name=APP_NAME               # Your application name
-app_domain=example.com          # Your app domain (for nginx configuration)
-user_password=PASSWORD          # Password for user deploy, encrypted in md5
+# Your application name
+app_name=APP_NAME
+# Your app domain (for nginx configuration)
+app_domain=example.com
+# Password for user deploy, encrypted in md5
+user_password=PASSWORD
 
-monit_enabled=true              # Enable or disable monit installation
-monit_user=MONIT_USERNAME       # Username for monit
-monit_password=MONIT_PASSWORD   # Password for monit, plain text
-monit_allowed_ip=0.0.0.0        # Allowed IP for monit sign in
+# Enable or disable monit installation
+monit_enabled=true
+# Username for monit
+monit_user=MONIT_USERNAME
+# Password for monit, plain text
+monit_password=MONIT_PASSWORD
+# Allowed IP for monit sign in
+monit_allowed_ip=0.0.0.0
 
-ruby_version=2.3.3              # Ruby version
+# Ruby version
+ruby_version=2.3.3
 
-restore_backup=true             # Make it false for fresh deploy
-postgres_password=00000000      # Your app database password (for database.yml)
+# Make it false for fresh deploy
+restore_backup=true
+# Your app database password (for database.yml)
+postgres_password=00000000
 
 backup_to_aws=true
 aws_key=AWS_KEY
@@ -46,8 +57,9 @@ aws_bucket_name=YOUR_BUCKET_NAME
 
 slack_webhook_url=https://hooks.slack.com/services/SOME_GENERATED_VALUE
 
-ansible_ssh_user=vagrant        # For local testing
-ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
+# For local testing
+;ansible_ssh_user=vagrant
+;ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
 ```
 
 **IMPORTANT**
