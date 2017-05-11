@@ -71,6 +71,7 @@
   remote_user: deploy
   roles:
     - role: rvm_io.ruby
+      rvm1_user: 'deploy'
       become: yes
       rvm1_user: 'deploy'
       rvm1_rubies:
