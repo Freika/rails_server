@@ -48,7 +48,7 @@
   become: yes
   vars:
     passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
-    passenger_ruby: /usr/local/rvm/gems/ruby-{{ ruby_version }}/wrappers/ruby
+    passenger_ruby: /home/deploy/.rvm/gems/ruby-{{ ruby_version }}/wrappers/ruby
     passenger_app_env: production
     passenger_app_root: /home/deploy/var/www/{{ app_name }}/current/public
     passenger_server_name: "{{ app_domain }}"
@@ -73,7 +73,6 @@
     - role: rvm_io.ruby
       rvm1_user: 'deploy'
       become: yes
-      rvm1_user: 'deploy'
       rvm1_rubies:
         - 'ruby-{{ ruby_version }}'
     - role: ruby
